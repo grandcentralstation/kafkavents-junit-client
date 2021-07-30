@@ -21,6 +21,7 @@ func main() {
 	junitXMLFile, _ := os.Open(*junitXMLFilePath)
 	kafkaConfFile, _ := os.Open(*kafkaConfigPath)
 	kafkaByteValue, _ := ioutil.ReadAll(kafkaConfFile)
+	kafkaConfFile.Close()
 
 	var kafkaconf kafkavents.KafkaConf
 
@@ -52,6 +53,7 @@ func main() {
 	if err != nil {
 		fmt.Println("ERROR on JSON Marshall")
 	}
+	junitXMLFile.Close()
 
 	fmt.Println(string(json))
 
@@ -76,67 +78,5 @@ func main() {
 	}
 
 
-	junitXMLFile.Close()
-/*
-	junitXMLFile, _ = os.Open(*junitXMLFilePath)
-
-	dec := xml.NewDecoder(junitXMLFile)
-	var stack []string	
-	for {
-		tok, err := dec.Token()
-		if err == io.EOF {
-			break
-		} else if err != nil {
-			fmt.Fprintf(os.Stderr, "xmlselect: %v\n", err)	
-			os.Exit(1)
-		}
-		switch tok := tok.(type) {
-		case xml.StartElement:
-			for x := 0; x < len(stack); x++ {
-				fmt.Print("\t")
-			}
-			fmt.Printf("%s:\n", tok.Name.Local)
-			stack = append(stack, tok.Name.Local)
-			for _, attr := range tok.Attr {
-				for x := 0; x < len(stack); x++ {
-					fmt.Print("\t")
-				}
-				fmt.Printf("%s: %s\n", attr.Name.Local, attr.Value)
-			}
-
-			value := tok.Name.Local
-			producer.Produce(&kafka.Message{
-				TopicPartition: kafka.TopicPartition{Topic: &topic,
-					Partition: kafka.PartitionAny},
-				Value: []byte(value)}, nil)
-		
-			// Wait for delivery report
-			e := <-producer.Events()
-		
-			message := e.(*kafka.Message)
-			if message.TopicPartition.Error != nil {
-				fmt.Printf("failed to deliver message: %v\n",
-					message.TopicPartition)
-			} else {
-				fmt.Printf("delivered to topic %s [%d] at offset %v\n",
-					*message.TopicPartition.Topic,
-					message.TopicPartition.Partition,
-					message.TopicPartition.Offset)
-			}
-		
-		case xml.EndElement:
-			//for x := 0; x < len(stack) - 1; x++ {
-			//	fmt.Print("\t")
-			//}
-			//fmt.Print("}\n")
-			stack = stack[:len(stack)-1]
-		case xml.CharData:
-			if len(tok) == 1000 {
-				fmt.Printf("%s: %s\n", strings.Join(stack, " "), tok)	
-			}
-		}
-	}
-*/
 	producer.Close()
-
 }
