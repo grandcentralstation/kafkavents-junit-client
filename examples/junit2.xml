@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="5" hostname="hp15pg" name="pytest" skipped="10" tests="20" time="19.669" timestamp="2021-07-27T21:33:42.775393"><testcase classname="example_tests.test_kafkavents" name="test_generated[xfailed]" time="0.334"><skipped message="intentionally failed" type="pytest.xfail" /></testcase><testcase classname="example_tests.test_kafkavents" name="test_generated[skipped]" time="0.380"><skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkavents.py:20: intentionally skipped</skipped></testcase><testcase classname="example_tests.test_kafkavents" name="test_generated[passed]" time="0.334" /><testcase classname="example_tests.test_kafkavents" name="test_generated[failed]" time="0.510"><failure message="assert 1 == 2">kvtest_outcome = 'failed'
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+<testsuite errors="0" failures="5" hostname="hp15pg" name="pytest" skipped="10" tests="20" time="19.669" timestamp="2021-07-27T21:33:42.775393">
+<testcase classname="example_tests.test_kafkavents" name="test_generated[xfailed]" time="0.334">
+<skipped message="intentionally failed" type="pytest.xfail" />
+</testcase>
+<testcase classname="example_tests.test_kafkavents" name="test_generated[skipped]" time="0.380">
+<skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkavents.py:20: intentionally skipped</skipped>
+</testcase>
+<testcase classname="example_tests.test_kafkavents" name="test_generated[passed]" time="0.334" />
+<testcase classname="example_tests.test_kafkavents" name="test_generated[failed]" time="0.510">
+<failure message="assert 1 == 2">kvtest_outcome = 'failed'
 
     def test_generated(kvtest_outcome):
         #time.sleep(random.randint(0, 1))
@@ -12,7 +23,9 @@
 &gt;           assert 1 == 2
 E           assert 1 == 2
 
-example_tests/test_kafkavents.py:16: AssertionError</failure></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[passed-x86_64-Linux]" time="0.384" /><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[passed-x86_64-MacOS]" time="0.504" /><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[passed-ARM-Linux]" time="0.362" /><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[passed-ARM-MacOS]" time="0.373" /><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[xfailed-x86_64-Linux]" time="0.465"><skipped message="intentionally failed" type="pytest.xfail" /></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[xfailed-x86_64-MacOS]" time="0.429"><skipped message="intentionally failed" type="pytest.xfail" /></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[xfailed-ARM-Linux]" time="0.410"><skipped message="intentionally failed" type="pytest.xfail" /></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[xfailed-ARM-MacOS]" time="0.452"><skipped message="intentionally failed" type="pytest.xfail" /></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[skipped-x86_64-Linux]" time="0.337"><skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkaventsclass.py:21: intentionally skipped</skipped></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[skipped-x86_64-MacOS]" time="0.414"><skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkaventsclass.py:21: intentionally skipped</skipped></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[skipped-ARM-Linux]" time="0.370"><skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkaventsclass.py:21: intentionally skipped</skipped></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[skipped-ARM-MacOS]" time="0.406"><skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkaventsclass.py:21: intentionally skipped</skipped></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[failed-x86_64-Linux]" time="0.366"><failure message="assert 1 == 2">self = &lt;test_kafkaventsclass.TestKafkavents object at 0x7f94c196ce50&gt;, kvtest_outcome = 'failed'
+example_tests/test_kafkavents.py:16: AssertionError</failure>
+</testcase>
+<testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[passed-x86_64-Linux]" time="0.384" /><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[passed-x86_64-MacOS]" time="0.504" /><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[passed-ARM-Linux]" time="0.362" /><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[passed-ARM-MacOS]" time="0.373" /><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[xfailed-x86_64-Linux]" time="0.465"><skipped message="intentionally failed" type="pytest.xfail" /></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[xfailed-x86_64-MacOS]" time="0.429"><skipped message="intentionally failed" type="pytest.xfail" /></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[xfailed-ARM-Linux]" time="0.410"><skipped message="intentionally failed" type="pytest.xfail" /></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[xfailed-ARM-MacOS]" time="0.452"><skipped message="intentionally failed" type="pytest.xfail" /></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[skipped-x86_64-Linux]" time="0.337"><skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkaventsclass.py:21: intentionally skipped</skipped></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[skipped-x86_64-MacOS]" time="0.414"><skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkaventsclass.py:21: intentionally skipped</skipped></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[skipped-ARM-Linux]" time="0.370"><skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkaventsclass.py:21: intentionally skipped</skipped></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[skipped-ARM-MacOS]" time="0.406"><skipped message="intentionally skipped" type="pytest.skip">/home/loadtheacc/Devel/github/grandcentralstation/pytest-kafkavents/example_tests/test_kafkaventsclass.py:21: intentionally skipped</skipped></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[failed-x86_64-Linux]" time="0.366"><failure message="assert 1 == 2">self = &lt;test_kafkaventsclass.TestKafkavents object at 0x7f94c196ce50&gt;, kvtest_outcome = 'failed'
 kvtest_arch = 'x86_64', kvtest_os = 'Linux'
 
     def test_generated(self, kvtest_outcome, kvtest_arch, kvtest_os):
@@ -27,7 +40,10 @@ kvtest_arch = 'x86_64', kvtest_os = 'Linux'
 &gt;           assert 1 == 2
 E           assert 1 == 2
 
-example_tests/test_kafkaventsclass.py:17: AssertionError</failure></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[failed-x86_64-MacOS]" time="0.360"><failure message="assert 1 == 2">self = &lt;test_kafkaventsclass.TestKafkavents object at 0x7f94c196cbd0&gt;, kvtest_outcome = 'failed'
+example_tests/test_kafkaventsclass.py:17: AssertionError</failure>
+</testcase>
+<testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[failed-x86_64-MacOS]" time="0.360">
+<failure message="assert 1 == 2">self = &lt;test_kafkaventsclass.TestKafkavents object at 0x7f94c196cbd0&gt;, kvtest_outcome = 'failed'
 kvtest_arch = 'x86_64', kvtest_os = 'MacOS'
 
     def test_generated(self, kvtest_outcome, kvtest_arch, kvtest_os):
@@ -72,4 +88,7 @@ kvtest_arch = 'ARM', kvtest_os = 'MacOS'
 &gt;           assert 1 == 2
 E           assert 1 == 2
 
-example_tests/test_kafkaventsclass.py:17: AssertionError</failure></testcase></testsuite></testsuites>
+example_tests/test_kafkaventsclass.py:17: AssertionError</failure>
+</testcase>
+</testsuite>
+</testsuites>
