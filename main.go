@@ -63,6 +63,10 @@ func main() {
 	fmt.Println(string(jsontext))
 
 	//kafkaconf.Send(*kafkaTopic, json)
+	kvent := kafkavents.KVEvent{}
+
+	kventMessage, err := json.MarshalIndent(kvent, "", "  ")
+
 
 	for _, testsuite := range testsuites.Testsuites {
 		fmt.Printf("%s", testsuite)
@@ -73,11 +77,12 @@ func main() {
 			}
 			fmt.Printf("%s", message)
 			kafkaconf.Send(*kafkaTopic, []byte(message))
+			kafkaconf.Send(*kafkaTopic, []byte(kventMessage))
 		}
 	}
 
-	fmt.Printf("Closing producer")
+	fmt.Println("Closing producer")
 	producer.Flush(5000)
 	producer.Close()
-	fmt.Printf("producer closed")
+	fmt.Println("producer closed")
 }

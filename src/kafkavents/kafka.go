@@ -23,6 +23,36 @@ type KafkaVents struct {
     Producer *kafka.Producer
 }
 
+// KVEvent defines a KafkaVents event
+type KVEvent struct {
+    Header KVHeader
+    Body KVBody
+}
+
+// KVHeader defines the header for a KafkaVent
+type KVHeader struct {
+    SessionID  string `json:"session_id"`
+    SessionNum int64    `json:"session_num"`
+    Topic string        `json:"topic"`
+    Packetnum int       `json:"packetnum"`
+    Type string         `json:"type"`
+    Source string       `json:"source"`
+    Version string      `json:"version"`
+    Timestamp string    `json:"timestamp"`
+}
+
+// KVBody defines a body for a KafkaVent
+type KVBody struct {
+    Nodeid string   `json:"nodeid"`
+    Domain string   `json:"domain"`
+    Nodepath string `json:"nodepath"`
+    Status string   `json:"status"`
+    Duration float64    `json:"duration"`
+    Stdout string       `json:"stdout"`
+    Stderr string       `json:"stderr"`
+    Message string      `json:"message"`
+}
+
 // Send a kafka event
 func (kc *KafkaConf) Send(topic string, event []byte) {
     kc.KProducer.Produce(&kafka.Message{
