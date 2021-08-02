@@ -58,7 +58,9 @@ kvtest_arch = 'x86_64', kvtest_os = 'MacOS'
 &gt;           assert 1 == 2
 E           assert 1 == 2
 
-example_tests/test_kafkaventsclass.py:17: AssertionError</failure></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[failed-ARM-Linux]" time="0.462"><failure message="assert 1 == 2">self = &lt;test_kafkaventsclass.TestKafkavents object at 0x7f94c1982310&gt;, kvtest_outcome = 'failed'
+example_tests/test_kafkaventsclass.py:17: AssertionError</failure>
+</testcase>
+<testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[failed-ARM-Linux]" time="0.462"><failure message="assert 1 == 2">self = &lt;test_kafkaventsclass.TestKafkavents object at 0x7f94c1982310&gt;, kvtest_outcome = 'failed'
 kvtest_arch = 'ARM', kvtest_os = 'Linux'
 
     def test_generated(self, kvtest_outcome, kvtest_arch, kvtest_os):
@@ -73,7 +75,9 @@ kvtest_arch = 'ARM', kvtest_os = 'Linux'
 &gt;           assert 1 == 2
 E           assert 1 == 2
 
-example_tests/test_kafkaventsclass.py:17: AssertionError</failure></testcase><testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[failed-ARM-MacOS]" time="0.330"><failure message="assert 1 == 2">self = &lt;test_kafkaventsclass.TestKafkavents object at 0x7f94c1975110&gt;, kvtest_outcome = 'failed'
+example_tests/test_kafkaventsclass.py:17: AssertionError</failure>
+</testcase>
+<testcase classname="example_tests.test_kafkaventsclass.TestKafkavents" name="test_generated[failed-ARM-MacOS]" time="0.330"><failure message="assert 1 == 2">self = &lt;test_kafkaventsclass.TestKafkavents object at 0x7f94c1975110&gt;, kvtest_outcome = 'failed'
 kvtest_arch = 'ARM', kvtest_os = 'MacOS'
 
     def test_generated(self, kvtest_outcome, kvtest_arch, kvtest_os):

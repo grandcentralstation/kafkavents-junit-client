@@ -9,19 +9,21 @@ import (
 	"io/ioutil"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"kafkavents"
-	"os"	
-	//"strings"
+	"os"
+	"github.com/google/uuid"
+	"strings"
+	"time"
 )
 
 // GetProducer gets/makes a Kafka Producer
-func GetProducer(kafkaconf kafkavents.KafkaConf) kafka.Producer {
+func GetProducer(config kafkavents.KafkaConf) kafka.Producer {
 	// Produce a new record to the topic...
 	producer, err := kafka.NewProducer(&kafka.ConfigMap{
-		"bootstrap.servers":       kafkaconf.BootstrapServers,
-		"sasl.mechanisms":         kafkaconf.SaslMechanism,
-		"security.protocol":       kafkaconf.SaslSecurityProtocol,
-		"sasl.username":           kafkaconf.SaslUsername,
-		"sasl.password":           kafkaconf.SaslPassword})
+		"bootstrap.servers":       config.BootstrapServers,
+		"sasl.mechanisms":         config.SaslMechanism,
+		"security.protocol":       config.SaslSecurityProtocol,
+		"sasl.username":           config.SaslUsername,
+		"sasl.password":           config.SaslPassword})
 
 	if err != nil {
 		panic(fmt.Sprintf("Failed to create producer: %s", err))
@@ -36,6 +38,11 @@ func main() {
 	var kafkaTopic = flag.String("t", "kafkavents", "the Kafka topic")
 	flag.Parse()
 
+	SessionID := uuid.NewString()
+	fmt.Printf("SessionID: %s\n", SessionID)
+	var SessionNum int64 = 0
+	var PacketNum int64 = 0
+
 	kafkaConfFile, _ := os.Open(*kafkaConfigPath)
 	kafkaByteValue, _ := ioutil.ReadAll(kafkaConfFile)
 
@@ -43,7 +50,7 @@ func main() {
 	kafkaConfFile.Close()
 
 	json.Unmarshal(kafkaByteValue, &kafkaconf)
-	fmt.Println(kafkaconf.BootstrapServers)
+	//fmt.Println(kafkaconf.BootstrapServers)
 
 	kafkaconf.KVProducer()
 	producer := kafkaconf.KProducer
@@ -52,34 +59,97 @@ func main() {
 	byteValue, _ := ioutil.ReadAll(junitXMLFile)
 	var testsuites kafkavents.Testsuites
 	xml.Unmarshal(byteValue, &testsuites)
-	fmt.Println(len(testsuites.Testsuites))
+	//fmt.Println(len(testsuites.Testsuites))
 
+	/*
 	jsontext, err := json.MarshalIndent(testsuites, "", "  ")
 	if err != nil {
 		fmt.Println("ERROR on JSON Marshal")
 	}
 	junitXMLFile.Close()
 
-	fmt.Println(string(jsontext))
+	//fmt.Println(string(jsontext))
 
-	//kafkaconf.Send(*kafkaTopic, json)
+	kafkaconf.Send(*kafkaTopic, jsontext)
+	*/
+
+	// refactor into function w/ start struct
+	kventStart := kafkavents.KVEvent{}
+	kventStart.Header.Topic = *kafkaTopic
+	kventStart.Header.SessionID = SessionID
+	kventStart.Header.Type = "sessionstart"
+	kventStart.Header.Source = "junit-kafkavents"
+	kventStart.Header.Version = "0.01"
+	kventStart.Header.Timestamp = time.Now()
+	kventStart.Header.SessionNum = SessionNum
+	kventStart.Header.Packetnum = PacketNum
+	kventStart.Body.Name = "My Test"
+	//kventStartMessage, err := json.MarshalIndent(kventStart, "", "  ")
+	kventStartMessage, err := json.Marshal(kventStart)
+	if err != nil {
+		fmt.Println("ERROR on JSON Marshal")
+	}
+	kafkaconf.Send(*kafkaTopic, []byte(kventStartMessage))
+
 	kvent := kafkavents.KVEvent{}
-
-	kventMessage, err := json.MarshalIndent(kvent, "", "  ")
-
-
 	for _, testsuite := range testsuites.Testsuites {
-		fmt.Printf("%s", testsuite)
+		//fmt.Printf("%s", testsuite)
 		for _, testcase := range testsuite.Testcases {
-			message, err := json.MarshalIndent(testcase, "", "  ")
+			kvent.Header.Topic = *kafkaTopic
+			kvent.Header.SessionID = SessionID
+			kvent.Header.Type = "testresult"
+			kvent.Header.Source = "junit-kafkavents"
+			kvent.Header.Version = "0.01"
+			kvent.Header.Timestamp = time.Now()
+			kvent.Header.SessionNum = SessionNum
+			kvent.Header.Packetnum = PacketNum
+			// build nodepath from Classname and Name
+			tempName := strings.Replace(testcase.Name, "[", ".", 1)
+			tempName = strings.Replace(tempName, "]", "", 1)
+			kvent.Body.Nodepath = testcase.Classname + "." + tempName
+			kvent.Body.Domain = kvent.Body.Nodepath
+			status := "passed"
+			if testcase.Skipped != nil {
+				status = "skipped"
+				kvent.Body.Message = testcase.Skipped.Message
+				kvent.Body.Stderr = testcase.Skipped.Text
+			}
+			if testcase.Failure != nil {
+				status = "failed"
+				kvent.Body.Message = testcase.Failure.Message
+				kvent.Body.Stderr = testcase.Failure.Text
+			}
+			kvent.Body.Status = status
+			kvent.Body.Duration = testcase.Time
+			kventMessage, err := json.MarshalIndent(kvent, "", "  ")
+			//kventMessage, err := json.Marshal(kvent)
 			if err != nil {
 				fmt.Println("ERROR on JSON Marshal")
 			}
-			fmt.Printf("%s", message)
-			kafkaconf.Send(*kafkaTopic, []byte(message))
 			kafkaconf.Send(*kafkaTopic, []byte(kventMessage))
+			// move this to send to keep track of actual sends
+			PacketNum++
+			SessionNum++
 		}
 	}
+
+	// refactor into function w/ end struct
+	kventEnd := kafkavents.KVEvent{}
+	kventEnd.Header.Topic = *kafkaTopic
+	kventEnd.Header.SessionID = SessionID
+	kventEnd.Header.Type = "sessionend"
+	kventEnd.Header.Source = "junit-kafkavents"
+	kventEnd.Header.Version = "0.01"
+	kventEnd.Header.Timestamp = time.Now()
+	kventEnd.Header.SessionNum = SessionNum
+	kventEnd.Header.Packetnum = PacketNum
+	kventEnd.Body.Name = "My Test"
+	//kventEndMessage, err := json.MarshalIndent(kventEnd, "", "  ")
+	kventEndMessage, err := json.Marshal(kventEnd)
+	if err != nil {
+		fmt.Println("ERROR on JSON Marshal")
+	}
+	kafkaconf.Send(*kafkaTopic, []byte(kventEndMessage))
 
 	fmt.Println("Closing producer")
 	producer.Flush(5000)

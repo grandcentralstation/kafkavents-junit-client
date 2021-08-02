@@ -32,7 +32,7 @@ type Property struct {
 type Testcase struct {
 	Classname string	`xml:"classname,attr"`
 	Name string			`xml:"name,attr"`
-	Time string			`xml:"time,attr"`
+	Time float64			`xml:"time,attr"`
 	Failure *Failure		`xml:"failure"`
 	Skipped *Skipped		`xml:"skipped"`
 	Properties *Properties	`xml:"properties,omitempty"`
@@ -46,5 +46,6 @@ type Failure struct {
 
 // Skipped definition
 type Skipped struct {
+	Text string			`xml:",chardata"`
 	Message string		`xml:"message,attr,omitempty"`
 }

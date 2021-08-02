@@ -3,6 +3,7 @@ package kafkavents
 import (
     "fmt"
     "github.com/confluentinc/confluent-kafka-go/kafka"
+    "time"
 )
 
 
@@ -25,32 +26,34 @@ type KafkaVents struct {
 
 // KVEvent defines a KafkaVents event
 type KVEvent struct {
-    Header KVHeader
-    Body KVBody
+    Header KVHeader `json:"header"`
+    Body KVBody     `json:"body"`
 }
 
 // KVHeader defines the header for a KafkaVent
 type KVHeader struct {
-    SessionID  string `json:"session_id"`
+    SessionID  string   `json:"session_id"`
     SessionNum int64    `json:"session_num"`
     Topic string        `json:"topic"`
-    Packetnum int       `json:"packetnum"`
+    Packetnum int64       `json:"packetnum"`
     Type string         `json:"type"`
     Source string       `json:"source"`
     Version string      `json:"version"`
-    Timestamp string    `json:"timestamp"`
+    Timestamp time.Time    `json:"timestamp"`
 }
 
 // KVBody defines a body for a KafkaVent
 type KVBody struct {
-    Nodeid string   `json:"nodeid"`
-    Domain string   `json:"domain"`
-    Nodepath string `json:"nodepath"`
-    Status string   `json:"status"`
+    Nodeid string       `json:"nodeid,omitempty"`
+    Domain string       `json:"domain"`
+    Nodepath string     `json:"nodepath"`
+    Status string       `json:"status"`
     Duration float64    `json:"duration"`
-    Stdout string       `json:"stdout"`
-    Stderr string       `json:"stderr"`
+    Stdout string       `json:"stdout,omitempty"`
+    Stderr string       `json:"stderr,omitempty"`
     Message string      `json:"message"`
+    // Name is to temporarily handle start and end. Move to a different struct
+    Name string         `json:"name"`
 }
 
 // Send a kafka event
